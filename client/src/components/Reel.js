@@ -27,9 +27,8 @@ export class Reel {
       this.container.addChild(sprite);
       this.sprites.push(sprite);
     }
-
     this.targetPosition = null;
-
+    // console.log("maxY", this.sprites.length);
     // Маска
     const mask = new PIXI.Graphics();
     mask.beginFill(0xffffff);
@@ -44,7 +43,7 @@ export class Reel {
 
   stopAtSymbol(symbolName) {
     if (!this.spinning) return;
-
+    
     // this.position это самый верх нужно сделать смещение до центра
     // 5 => 2, 3 => 1 и тд
     const centerIndex = Math.floor(VISIBLE_SYMBOLS / 2);
@@ -96,7 +95,8 @@ export class Reel {
     if (!this.spinning) return;
 
     if (this.targetPosition !== null) {
-      let diff = this.targetPosition - this.position;
+      let diff = this.targetPosition + this.position;
+      // let diff = this.targetPosition - this.position;
 
       // Если diff стал отрицательным – перешагнули, подправляем
       if (diff < 0 || Math.abs(diff) < 0.5) {
@@ -116,9 +116,11 @@ export class Reel {
       this.speed = Math.max(minSpeed, targetSpeed, this.speed * 0.98);
       let step = this.speed * delta;
       if (step > diff) step = diff;
-      this.position += step;
+      this.position -= step;
+      // this.position += step;
     } else {
-      this.position += this.speed * delta;
+      this.position -= this.speed * delta;
+      // this.position += this.speed * delta;
       // Нормализация для обычного вращения
       const maxPos = this.stripSize * SYMBOL_SIZE;
       if (this.position >= maxPos) this.position -= maxPos;
