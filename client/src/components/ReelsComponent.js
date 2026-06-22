@@ -63,6 +63,8 @@ export function createReelsComponent(actor, app) {
 
     unsubscribers.push(
       onState(actor, 'stoppingReels', (ctx) => {
+        
+        
         if (ctx.spinResult?.reels) {
           reels.forEach((reel, idx) => {
             reel.stopAtSymbol(ctx.spinResult.reels[idx]);

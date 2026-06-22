@@ -93,9 +93,9 @@ export class Reel {
 
   update(delta) {
     if (!this.spinning) return;
-
+    
     if (this.targetPosition !== null) {
-      let diff = this.targetPosition + this.position;
+      let diff = this.targetPosition - this.position;
       // let diff = this.targetPosition - this.position;
 
       // Если diff стал отрицательным – перешагнули, подправляем
